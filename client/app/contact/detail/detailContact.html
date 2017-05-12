@@ -1,0 +1,123 @@
+<div class="container">
+  <h2 id="Enter">Enter the Contact's data</h2>
+
+  <form name="userForm" method="post" novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine }">
+      <label>First Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="firstName"
+        placeholder="Enter Name"
+        ng-model="$ctrl.contact.firstName"
+        ng-maxlength="25"
+        maxlength="25"
+        ng-pattern="/^[a-z A-Z]+$/"
+        required
+      >
+
+
+      <div ng-messages="userForm.firstName.$error" class="text text-danger"
+           ng-if="userForm.firstName.$invalid && !userForm.firstName.$pristine">
+        <div class="text text-danger" ng-message="pattern">
+        Invalid format.
+        </div>
+        <div class="text text-danger" ng-message="required">
+          First name is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine }">
+      <label>Last Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="lastName"
+        placeholder="Enter Last Name"
+        ng-model="$ctrl.contact.lastName"
+        ng-maxlength="25"
+        maxlength="25"
+        ng-pattern="/^[a-z A-Z]+$/"
+        required
+      >
+      <div ng-messages="userForm.lastName.$error" class="text text-danger"
+           ng-if="userForm.lastName.$invalid && !userForm.lastName.$pristine">
+        <div class="text text-danger" ng-message="required" >
+          Last name is required.
+        </div>
+
+        <div class="text text-danger" ng-message="pattern">
+        Invalid format.
+        </div>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{ 'has-error' : userForm.phoneNumber.$invalid && !userForm.phoneNumber.$pristine }">
+      <label>Phone Number</label>
+      <input
+        type="number"
+        class="form-control"
+        name="phoneNumber"
+        placeholder="Enter Phone Number"
+        ng-model="$ctrl.contact.phoneNumber"
+        ng-minlength="7"
+        ng-maxlength="10"
+        maxlength="10"
+        ng-pattern="[0-9]*"
+        required
+      >
+      <div ng-messages="userForm.phoneNumber.$error" class="text text-danger"
+           ng-if="userForm.phoneNumber.$invalid && !userForm.phoneNumber.$pristine">
+        <div ng-message="minlength" class="text text-danger">
+          Phone Number is too short.
+        </div>
+        <div ng-message="maxlength" class="text text-danger">
+          Phone Number is too long.
+        </div>
+        <div class="text text-danger" ng-message="pattern">
+        Invalid format.
+        </div>
+        <div ng-message="required" class="text text-danger">
+          Phone number is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>City</label>
+      <input
+        type="text"
+        class="form-control"
+        id="city"
+        placeholder="Enter city"
+        ng-model="$ctrl.contact.city"
+      >
+    </div>
+    <div class="form-group">
+      <label>Birthday</label>
+      <input
+        type="date"
+        class="form-control"
+        id="birthday"
+        placeholder="Enter birthday"
+        ng-model="$ctrl.contact.birthday"
+      >
+    </div>
+    <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+      <label>Email</label>
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        placeholder="Enter the email"
+        ng-model="$ctrl.contact.email"
+      >
+      <div
+        ng-show="userForm.email.$invalid && !userForm.email.$pristine"
+        class="text text-danger"
+      >Enter a valid email.
+      </div>
+
+    </div>
+    <button class="btn btn-success" id="save" ng-disabled="userForm.$invalid" ng-click="$ctrl.saveContact()">Submit</button>
+  </form>
+</div>

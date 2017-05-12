@@ -1,0 +1,93 @@
+<style>
+  input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-position: 10px 10px;
+    padding: 5px 10px 5px 10px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+  }
+
+  input[type=text]:focus {
+    width: 100%;
+  }
+  th a {
+    color: black;
+  }
+</style>
+
+<div class="container">
+  <h2>Your Contacts</h2>
+
+  <a
+    class="btn btn-success"
+    style="float:right"
+    ui-sref="contacts:new"
+    id="newContact"
+  >New Contact
+  </a>
+  <br><br>
+  <form>
+    <input type="text" name="search" placeholder="Search.." ng-model="searchText">
+  </form>
+  <br>
+
+  <table class="table table-hover table-border">
+    <thead>
+    <tr>
+      <th>
+        <a href="#" ng-click=" $ctrl.sortType = 'firstName'; $ctrl.sortReverse = !$ctrl.sortReverse">
+          Name
+          <span  ng-show="$ctrl.sortType == 'firstName' && !$ctrl.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+          <span  ng-show="$ctrl.sortType == 'firstName' && $ctrl.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+      </th>
+      <th>
+        <a href="#" ng-click=" $ctrl.sortType = 'lastName'; $ctrl.sortReverse = !$ctrl.sortReverse">
+          Last Name
+          <span  ng-show="$ctrl.sortType == 'lastName' && !$ctrl.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+          <span  ng-show="$ctrl.sortType == 'lastName' && $ctrl.sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+      </th>
+      <th>Phone Number</th>
+      <th>City</th>
+      <th>Birthday</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="contact in $ctrl.listContacts | filter: searchText | orderBy: $ctrl.sortType: $ctrl.sortReverse">
+      <td>{{contact.firstName}}</td>
+      <td>{{contact.lastName}}</td>
+      <td>{{contact.phoneNumber}}</td>
+      <td>{{contact.city}}</td>
+      <td>{{contact.birthday | date: 'longDate'}}</td>
+      <td>{{contact.email}}</td>
+
+      <td>
+        <a
+          class="btn btn-danger glyphicon glyphicon-trash"
+          title="Delete"
+          id="delete"
+          href="#"
+          ng-click="$ctrl.deleteContact(contact._id)"
+        >
+        </a>
+        <a
+          class="btn btn-info glyphicon glyphicon-pencil"
+          id="edit"
+          href="/contacts/{{contact._id}}"
+          title="Update"
+        >
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<br><br>
